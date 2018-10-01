@@ -1,0 +1,31 @@
+{
+  "name": "@eclipse-che/theia-remote-extension",
+  "version": "0.0.1",
+  "license" : "EPL-2.0",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "dependencies": {   
+    "@theia/plugin-ext": "0.4.0-next.7a021786",
+    "@theia/core": "0.4.0-next.7a021786"
+  },
+  "devDependencies": {
+    "tslint": "5.10.0",
+    "rimraf": "2.6.2",
+    "typescript": "2.9.2"
+  },
+  "scripts": {
+    "prepare": "yarn run clean && yarn run tslint && yarn run build",
+    "tslint-fix": "tslint --fix --project .",
+    "tslint": "tslint --project .",
+    "clean": "rimraf lib",
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "theiaExtensions": [
+    {
+      "backend": "lib/node/plugin-remote-backend-module"
+    }
+  ]
+}
