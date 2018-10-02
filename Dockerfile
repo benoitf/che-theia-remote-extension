@@ -12,6 +12,6 @@ RUN cd /home/theia-endpoint/ && yarn install
 
 FROM node:8.12-alpine
 # Grab runtime
-COPY --from=builder /home/theia-endpoint/node_modules /home/theia-endpoint/node_modules
-COPY --from=builder /home/theia-endpoint/lib /home/theia-endpoint/lib
-CMD node /home/theia-endpoint/lib/node/plugin-remote.js
+COPY --from=builder /home/theia-endpoint/node_modules /home/theia/node_modules
+COPY --from=builder /home/theia-endpoint/lib /home/theia/lib
+CMD node /home/theia/lib/node/plugin-remote.js
