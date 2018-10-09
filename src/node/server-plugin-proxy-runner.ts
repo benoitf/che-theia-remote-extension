@@ -45,7 +45,7 @@ export class ServerPluginProxyRunner implements ServerPluginRunner {
         if (this.hostedPluginRemote.hasEndpoint(jsonMessage.pluginID)) {
             this.hostedPluginRemote.onMessage(jsonMessage);
         } else {
-            this.defaultRunner.onMessage(jsonMessage);
+            this.defaultRunner.onMessage(jsonMessage.content);
         }
 
     }
