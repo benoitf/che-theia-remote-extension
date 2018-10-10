@@ -25,6 +25,9 @@ import { HostedPluginClient } from '@theia/plugin-ext';
  */
 @injectable()
 export class HostedPluginRemote {
+
+    private static ENDPOINT_ENV_VAR_PREFIX: string = 'THEIA_PLUGIN_REMOTE_ENDPOINT_';
+
     private client: HostedPluginClient;
 
     @inject(ILogger)
@@ -47,13 +50,13 @@ export class HostedPluginRemote {
         this.pluginsEndpoints = new Map<string, string>();
 
         // Grab endpoints from env var
-        const endpointKeys: string[] = Object.keys(process.env).filter(key => key.startsWith('THEIA_PLUGIN_ENDPOINT_ADDRESS_'));
+        const endpointKeys: string[] = Object.keys(process.env).filter(key => key.startsWith(HostedPluginRemote.ENDPOINT_ENV_VAR_PREFIX));
         this.endpoints = endpointKeys.map(key => process.env[key] || '');
         this.logger.info('Plugins Remote Endpoints are ', this.endpoints);
 
-        const pluginEndpointKeys: string[] = Object.keys(process.env).filter(key => key.startsWith('THEIA_PLUGIN_ENDPOINT_MAPPING_'));
+        const pluginEndpointKeys: string[] = Object.keys(process.env).filter(key => key.startsWith(HostedPluginRemote.ENDPOINT_ENV_VAR_PREFIX));
         pluginEndpointKeys.forEach(key => {
-            this.pluginsEndpoints.set(key.substring('THEIA_PLUGIN_ENDPOINT_MAPPING_'.length), process.env[key] || '');
+            this.pluginsEndpoints.set(key.substring(HostedPluginRemote.ENDPOINT_ENV_VAR_PREFIX.length), process.env[key] || '');
         });
         this.logger.info('Plugins Remote Endpoints are ', this.pluginsEndpoints);
     }
