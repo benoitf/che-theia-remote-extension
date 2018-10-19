@@ -14,15 +14,29 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 
-import { ContainerModule } from 'inversify';
+import { injectable, inject } from 'inversify';
+import { ILogger } from '@theia/core/lib/common';
+import { MetadataProcessor, PluginMetadata, getPluginId } from '@theia/plugin-ext';
 import { HostedPluginRemote } from './hosted-plugin-remote';
-import { ServerPluginProxyRunner } from './server-plugin-proxy-runner';
-import { MetadataProcessor, ServerPluginRunner } from '@theia/plugin-ext/lib/common';
-import { RemoteMetadataProcessor } from './remote-metadata-processor';
 
-export default new ContainerModule(bind => {
-    bind(HostedPluginRemote).toSelf().inSingletonScope();
-    bind(ServerPluginRunner).to(ServerPluginProxyRunner).inSingletonScope();
-    bind(MetadataProcessor).to(RemoteMetadataProcessor).inSingletonScope();
+/**
+ * Add on top of metadata the endpoint host
+ * @author Florent Benoit
+ */
+@injectable()
+export class RemoteMetadataProcessor implements MetadataProcessor {
+
+    @inject(ILogger)
+    protected readonly logger: ILogger;
+
+    @inject(HostedPluginRemote)
+    private hostedPluginRemote: HostedPluginRemote;
+
+    process(pluginMetadata: PluginMetadata): void {
+        const pluginID = getPluginId(pluginMetadata.model);
+        if (this.hostedPluginRemote.hasEndpoint(pluginID)) {
+            pluginMetadata.host = this.hostedPluginRemote.getEndpoint(pluginID)!.replace(/\W/g, '_');
+        }
+    }
+
 }
-);
