@@ -79,6 +79,14 @@ export class HostedPluginRemote {
     }
 
     /**
+     * Gets endpoint for given id
+     * @param pluginID for plugin-id
+     */
+    getEndpoint(pluginID: string): string | undefined {
+        return this.pluginsEndpoints.get(pluginID);
+    }
+
+    /**
      * Handle the creation of connection to remote endpoints.
      */
     setupWebsocket(): void {
