@@ -7,8 +7,8 @@
     "src"
   ],
   "dependencies": {   
-    "@theia/plugin-ext": "0.4.0-next.b2daecdc",
-    "@theia/core": "0.4.0-next.b2daecdc"
+    "@theia/plugin-ext": "0.4.0-next.ac580dd6",
+    "@theia/core": "0.4.0-next.ac580dd6"
   },
   "devDependencies": {
     "tslint": "5.10.0",
