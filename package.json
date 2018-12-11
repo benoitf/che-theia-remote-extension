@@ -7,8 +7,9 @@
     "src"
   ],
   "dependencies": {   
-    "@theia/plugin-ext": "0.4.0-next.ac580dd6",
-    "@theia/core": "0.4.0-next.ac580dd6"
+    "@theia/plugin-ext": "0.3.17",
+    "@theia/plugin-ext-vscode": "0.3.17",
+    "@theia/core": "0.3.17"
   },
   "devDependencies": {
     "tslint": "5.10.0",
